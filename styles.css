@@ -769,6 +769,14 @@ h3 {
   font-size: 0.72rem;
 }
 
+/* On very large screens the 4-column grid stretches the headshots too big;
+   fit 5 across so each card stays a reasonable size. */
+@media (min-width: 1600px) {
+  .organizer-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
 .sponsors {
   padding-top: 0;
 }
@@ -1015,7 +1023,25 @@ h3 {
   }
 
   .organizer-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Step the organizer grid down one column at a time (4 → 3 → 2 → 1) so the
+   headshots never jump from large-and-wide to cramped in a single break. */
+@media (max-width: 800px) {
+  .organizer-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  /* Single column: full-width cards make the headshots huge and the long
+     organizer list a slog to scroll. Cap the column and centre it so each
+     card (and its image) stays compact. */
+  .organizer-grid {
+    grid-template-columns: minmax(0, 300px);
+    justify-content: start;
   }
 }
 
@@ -1062,10 +1088,6 @@ h3 {
   .timeline li {
     grid-template-columns: 1fr;
     gap: 6px;
-  }
-
-  .organizer-grid {
-    grid-template-columns: 1fr;
   }
 
   .runtime-grid,
